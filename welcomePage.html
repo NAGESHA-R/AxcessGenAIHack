@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Welcome - Axcess.io</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      display: flex;
+      min-height: 100vh;
+      background-color: #f4f6fb;
+      flex-direction: row;
+    }
+
+    .sidebar {
+      width: 16.2%;
+      background-color: #1e2348;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .sidebar img {
+      width: 70%;
+      margin-bottom: 15%;
+    }
+
+    .sidebar nav {
+      width: 100%;  
+    }
+
+    .sidebar nav button {
+      display: flex;
+      width: 100%;
+      background: none;
+      border: none;
+      color: white;
+      text-align:center;
+      padding: 12px 10px;
+      font-size: 17px;
+      cursor: pointer;
+      border-radius: 8px;
+      transition: background 0.3s;
+      font-family: sans-serif;
+    }
+    .sidebar nav a{
+     text-decoration: none;
+      background: none;
+      border: none;
+      color: white;
+    }
+
+    .sidebar nav button:hover {
+      background-color: #2f3570;
+    }
+
+    .main {
+      flex: 1;
+      padding: 10px;
+    }
+
+    .hero {
+      background: #fff4e5;
+      padding: 30px 20px;
+      border-bottom: 1px solid #e0e0e0;
+      margin-bottom: 30px;
+      border-radius: 16px;
+    }
+
+    .welcome-flex {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 30px;
+    }
+
+    .welcome-text-block {
+      flex: 1;
+      min-width: 250px;
+    }
+
+    .welcome-text-block h1 {
+      font-size: 30px;
+      color: #1e2348;
+      font-weight: 800;
+    }
+
+    .welcome-text-block span {
+      color: #3b4780;
+      font-weight: bold;
+      font-size: 20px;
+    }
+
+    .profile-card {
+      background-color: rgba(255, 255, 255, 0.8);
+      padding: 15px 25px;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
+      min-width: 250px;
+      backdrop-filter: blur(10px);
+    }
+
+    .profile-card img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      margin-right: 15px;
+      border: 2px solid #3b4780;
+    }
+
+    .profile-info h3 {
+      margin: 0;
+      font-size: 18px;
+      font-weight: 600;
+      color: #1e2348;
+    }
+
+    .profile-info p {
+      font-size: 12px;
+      color: #888;
+      margin: 4px 0 0 0;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 25px;
+    }
+
+    .card,
+    .glass-card {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+      text-align: center;
+      transition: transform 0.3s, box-shadow 0.3s;
+      min-height: 100px;
+      padding: 15px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+    }
+
+    .card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    }
+
+    .glass-card {
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    .company-logo {
+      width: 100%;
+      height: 80px;
+      border-radius: 12px;
+      margin-bottom: 10px;
+      object-fit: contain;
+      background: #f8f9fa;
+      padding: 15px;
+    }
+
+    .card strong {
+      display: block;
+      font-size: 16px;
+      color: #333;
+      font-weight: 600;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    .arrow-link {
+      width: 35px;
+      height: 35px;
+      background: linear-gradient(135deg, #1e2348, #3b4780);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 8px rgba(30, 35, 72, 0.3);
+    }
+
+    .arrow-link:hover {
+      transform: scale(1.1);
+      box-shadow: 0 4px 12px rgba(30, 35, 72, 0.4);
+      background: linear-gradient(135deg, #3b4780, #1e2348);
+    }
+
+    .view-more-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+    }
+
+    .view-more-btn {
+      background-color: transparent;
+      border: 2px solid #1e2348;
+      padding: 12px 24px;
+      border-radius: 50px;
+      color: #1e2348;
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+    }
+
+    .view-more-btn:hover {
+      background-color: #1e2348;
+      color: white;
+    }
+
+    .view-more-btn:hover .circle {
+      background-color: white;
+      color: #1e2348;
+    }
+
+    .circle {
+      background-color: #1e2348;
+      color: white;
+      border-radius: 50%;
+      width: 28px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      margin-right: 10px;
+      font-weight: bold;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    @media (max-width: 900px) {
+      .grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 500px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .sidebar {
+        display: none;
+      }
+
+      .main {
+        padding: 20px;
+      }
+
+      .welcome-flex {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .profile-card {
+        width: 100%;
+      }
+
+      .view-more-btn {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <aside class="sidebar">
+    <nav>
+      <img src="logos.png" alt="Axcess.io Logo">
+      <a href="./profile.html"><button>Profile</button></a>
+      <button>Notifications</button>
+      <button>Settings</button>
+    </nav>
+  </aside>
+
+  <main class="main">
+    <div class="hero">
+      <div class="welcome-flex">
+        <div class="welcome-text-block">
+          <h1>Hello, Nagesha R</h1>
+          <span>Welcome Back!!</span>
+        </div>
+        <div class="profile-card">
+          <img src="./profile_photo.png" alt="Profile Image">
+          <div class="profile-info">
+            <h3>Nagesha R</h3>
+            <p>nagesha.r@axcess.io</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid">
+      <div class="card">
+        <img src="./Deloitte-logo.png" alt="Deloitte Logo" class="company-logo">
+        
+        <a href="./dashboard.html" class="arrow-link">→</a>
+      </div>
+
+      <div class="card">
+        <img src="./juspay.png" alt="Juspay Logo" class="company-logo">
+       
+        <a href="./dashboard.html" class="arrow-link">→</a>
+      </div>
+
+      <div class="card">
+        <img src="./LTI-Mindtree-p-500.png" alt="LTIMindtree Logo" class="company-logo">
+        
+        <a href="./dashboard.html" class="arrow-link">→</a>
+      </div>
+
+      <div class="card">
+        <img src="./LT-1.png" alt="L&Tree Logo" class="company-logo">
+        
+        <a href="./dashboard.html" class="arrow-link">→</a>
+      </div>
+
+      <div class="card">
+        <img src="./OLA-Logo.png" alt="Ola Logo" class="company-logo">
+        
+        <a href="./dashboard.html" class="arrow-link">→</a>
+      </div>
+
+      <div class="card">
+        <img src="./Hubble-logo.png" alt="Hubble Logo" class="company-logo">
+        
+        <a href="./dashboard.html" class="arrow-link">→</a>
+      </div>
+
+      <div class="card">
+        <img src="./Slice-logo.png" alt="Slice Logo" class="company-logo">
+        
+        <a href="./dashboard.html" class="arrow-link">→</a>
+      </div>
+
+      <!-- GLASS BLOCK SAME SIZE -->
+      <div class="glass-card">
+        <div class="view-more-container">
+          <button class="view-more-btn">
+            <span class="circle">→</span>
+            View More Organizations
+          </button>
+        </div>
+      </div>
+    </div>
+  </main>
+</body>
+
+</html>

@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sign Up - Axcess.io</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background-color: #DFE1E6;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .sidebar {
+      background-color: #1e2348;
+      height: 60px;
+      width: 100%;
+      display: flex;
+      align-items: center;
+    }
+
+    .sidebar img {
+      width: 10%;
+    }
+
+    .main {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      width: 95vw;
+      max-width: 1100px;
+      height: 85vh;
+      margin-top: 20px;
+      background-color: white;
+      box-shadow: 0 0 25px rgba(0, 0, 0, 0.1);
+      border-radius: 20px;
+      overflow: hidden;
+    }
+
+    .signup-box,
+    .description {
+      width: 50%;
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .signup-box h2 {
+      font-size: 22px;
+      margin-bottom: 20px;
+      font-weight: 800;
+      color: #1A1A1A;
+      text-align: center;
+    }
+
+    .signup-box input,
+    .signup-box select {
+      font-size: 14px;
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    .input-row {
+      display: flex;
+      gap: 10px;
+    }
+
+    .input-row select {
+      width: 30%;
+      color: #7c7d7d;
+    }
+
+    .input-row input {
+      width: 70%;
+    }
+
+    .signup-box button {
+      background-color: #2684FF;
+      color: white;
+      border: none;
+      padding: 10px;
+      width: 100%;
+      border-radius: 5px;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    .signup-box .link {
+      font-size: 12px;
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    .signup-box .terms {
+      display: flex;
+      align-items: center;
+      font-size: 12px;
+    }
+
+    .signup-box .terms input {
+      margin-right: 5px;
+      width: 15px;
+    }
+
+    .description {
+      position: relative;
+      background-color: #ffffff;
+    }
+
+    .images {
+      width: 100%;
+      height: 100%;
+      padding: 20px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .carousel-image {
+      position: absolute;
+      width: calc(100% - 40px);
+      height: 100%;
+      object-fit: fill;
+      border-radius: 20px;
+      opacity: 0;
+      animation: fade 12s infinite;
+      transition: opacity 2s ease-in-out;
+    }
+
+    .carousel-image:nth-child(1) {
+      animation-delay: 0s;
+    }
+
+    .carousel-image:nth-child(2) {
+      animation-delay: 4s;
+    }
+
+    .carousel-image:nth-child(3) {
+      animation-delay: 8s;
+    }
+
+    @keyframes fade {
+      0% {
+        opacity: 0;
+      }
+
+      10% {
+        opacity: 1;
+      }
+
+      30% {
+        opacity: 1;
+      }
+
+      40% {
+        opacity: 0;
+      }
+
+      100% {
+        opacity: 0;
+      }
+    }
+
+    .dot-container {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: auto;
+      margin-top:20px;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      background-color: #ccc;
+      border-radius: 50%;
+      transition: background-color 0.3s ease;
+    }
+
+    .dot.active {
+      background-color: #2684FF;
+      animation: pulse 1s infinite alternate;
+    }
+
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+      }
+
+      100% {
+        transform: scale(1.3);
+      }
+    }
+
+    @media (max-width: 1024px) {
+      .main {
+        transform: scale(0.9);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .main {
+        transform: scale(0.85);
+      }
+    }
+
+    @media (max-width: 600px) {
+      .main {
+        transform: scale(0.8);
+      }
+
+      .signup-box,
+      .description {
+        padding: 20px;
+      }
+
+      .carousel-image {
+        height: 85%;
+      }
+    }
+
+    @media (max-width: 450px) {
+      .main {
+        transform: scale(0.75);
+      }
+
+      .signup-box h2 {
+        font-size: 18px;
+      }
+
+      .carousel-image {
+        height: 80%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="sidebar">
+    <img src="logos.png" alt="Axcess.io Logo">
+  </div>
+
+  <div class="main">
+    <div class="signup-box">
+      <h2>Sign Up</h2>
+      <input type="text" placeholder="Name*">
+      <input type="email" placeholder="Email ID*">
+      <div class="input-row">
+        <select>
+          <option>+91</option>
+          <option>+1</option>
+          <option>+44</option>
+        </select>
+        <input type="tel" placeholder="Mobile Number">
+      </div>
+      <input type="text" placeholder="Organisation ID*">
+      <input type="password" placeholder="Password*">
+      <input type="password" placeholder="Confirm Password*">
+      <p class="terms">
+        <input type="checkbox"><span>I agree to the Terms of Service and Privacy Policy</span>
+      </p>
+      <button>Sign up</button>
+      <p class="link">Already have an account? <a href="./index.html">Sign in</a></p>
+    </div>
+
+    <div class="description">
+      <div class="images">
+        <img class="carousel-image" src="option1.jpg" alt="Slide 1">
+        <img class="carousel-image" src="option2.jpg" alt="Slide 2">
+        <img class="carousel-image" src="option3.png" alt="Slide 3">
+      </div>
+      <div class="dot-container">
+        <div class="dot active"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const dots = document.querySelectorAll('.dot');
+    let index = 0;
+
+    setInterval(() => {
+      dots.forEach(dot => dot.classList.remove('active'));
+      dots[index].classList.add('active');
+      index = (index + 1) % dots.length;
+    }, 4000);
+  </script>
+</body>
+
+</html>

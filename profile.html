@@ -1,0 +1,1668 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile - Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: #334155;
+            min-height: 100vh;
+        }
+
+        /* Header Styles */
+        .header {
+            height: 64px;
+            background-color: #ffffff;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .header h1 {
+            color: #334155;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        /* Button Styles */
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+            color: white;
+            box-shadow: 0 2px 4px rgba(59, 130, 246, 0.2);
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+            box-shadow: 0 4px 8px rgba(59, 130, 246, 0.3);
+            transform: translateY(-1px);
+        }
+
+        .btn-outline {
+            background: white;
+            border: 1px solid #d1d5db;
+            color: #374151;
+        }
+
+        .btn-outline:hover {
+            background: #f3f4f6;
+        }
+
+        .btn-danger {
+            background: white;
+            border: 1px solid #fca5a5;
+            color: #dc2626;
+        }
+
+        .btn-danger:hover {
+            background: #fef2f2;
+            border-color: #f87171;
+        }
+
+        .btn-danger-solid {
+            background: #dc2626;
+            color: white;
+        }
+
+        .btn-danger-solid:hover {
+            background: #b91c1c;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 24px;
+        }
+
+        /* Tabs */
+        .tabs {
+            margin-bottom: 24px;
+        }
+
+        .tab-list {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            display: flex;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        .tab-button {
+            padding: 16px 24px;
+            background: none;
+            border: none;
+            font-size: 12px;
+            font-weight: 500;
+            color: #64748b;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border-bottom: 2px solid transparent;
+            flex: 1;
+        }
+
+        .tab-button.active {
+            color: #3b82f6;
+            border-bottom-color: #3b82f6;
+            background-color: #ffffff;
+        }
+
+        .tab-button:hover:not(.active) {
+            color: #374151;
+            background-color: #f1f5f9;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Grid Layout */
+        .grid {
+            display: grid;
+            gap: 24px;
+        }
+
+        .grid-cols-3 {
+            grid-template-columns: 1fr 2fr;
+        }
+
+        /* Card Styles */
+        .card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .card-header {
+            background: #f8fafc;
+            border-bottom: 1px solid #e2e8f0;
+            padding: 20px 24px;
+        }
+
+        .card-header h3 {
+            color: #1f2937;
+            font-size: 14px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 4px;
+        }
+
+        .card-header p {
+            color: #64748b;
+            font-size: 12px;
+        }
+
+        .card-content {
+            padding: 24px;
+        }
+
+        /* Profile Card */
+        .profile-card {
+            position: relative;
+        }
+
+        .profile-cover {
+            height: 96px;
+            background: #1E2348;
+        }
+
+        .profile-avatar {
+            width: 96px;
+            height: 96px;
+            background: #1E2348;
+            border-radius: 50%;
+            border: 4px solid white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+            margin: -48px auto 0;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .profile-info {
+            text-align: center;
+            margin-top: 16px;
+        }
+
+        .profile-name {
+            font-size: 16   px;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 4px;
+        }
+
+        .profile-email {
+            color: #6b7280;
+            margin-bottom: 16px;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 4px 12px;
+            border-radius: 16px;
+            font-size: 10px;
+            font-weight: 500;
+            border: 1px solid;
+        }
+
+        .badge-admin {
+            background: #dbeafe;
+            color: #1e40af;
+            border-color: #bfdbfe;
+        }
+
+        .badge-user {
+            background: #dcfce7;
+            color: #166534;
+            border-color: #bbf7d0;
+        }
+
+        .badge-active {
+            background: #dcfce7;
+            color: #166534;
+            border-color: #bbf7d0;
+        }
+
+        .separator {
+            height: 1px;
+            background: #e5e7eb;
+            margin: 16px 0;
+        }
+
+        .profile-details {
+            text-align: left;
+        }
+
+        .detail-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .detail-icon {
+            width: 16px;
+            height: 16px;
+            color: #64748b;
+        }
+
+        .detail-content p:first-child {
+            font-size: 10px;
+            color: #64748b;
+            margin-bottom: 2px;
+        }
+
+        .detail-content p:last-child {
+            font-size: 10px;
+            font-weight: 500;
+            color: #334155;
+        }
+
+        /* Form Styles */
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin-bottom: 24px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-label {
+            font-size: 12px;
+            font-weight: 500;
+            color: #374151;
+        }
+
+        .required {
+            color: #ef4444;
+        }
+
+        .form-input,
+        .form-select,
+        .form-textarea {
+            padding: 10px 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 11px;
+            outline: none;
+            transition: border-color 0.2s ease;
+        }
+
+        .form-input:focus,
+        .form-select:focus,
+        .form-textarea:focus {
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .form-input.error {
+            border-color: #ef4444;
+        }
+
+        .form-textarea {
+            min-height: 100px;
+            resize: vertical;
+            font-family: inherit;
+        }
+
+        .phone-input {
+            display: flex;
+            gap: 8px;
+        }
+
+        .country-code {
+            width: 80px;
+        }
+
+        .error-message {
+            color: #ef4444;
+            font-size: 10px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            margin-top: 4px;
+        }
+
+        .display-value {
+            color: #1f2937;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Activity List */
+        .activity-list {
+            border-top: 1px solid #f1f5f9;
+        }
+
+        .activity-item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 16px 24px;
+            border-bottom: 1px solid #f1f5f9;
+            transition: background-color 0.2s ease;
+        }
+
+        .activity-item:hover {
+            background: #f9fafb;
+        }
+
+        .activity-item:last-child {
+            border-bottom: none;
+        }
+
+        .activity-icon {
+            width: 40px;
+            height: 40px;
+            background: #f8fafc;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .activity-content h4 {
+            font-size: 10px;
+            font-weight: 500;
+            color: #1f2937;
+            margin-bottom: 2px;
+        }
+
+        .activity-content p {
+            font-size: 12px;
+            color: #64748b;
+        }
+
+        /* Table Styles */
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .table thead {
+            background: #f9fafb;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .table th {
+            padding: 12px 24px;
+            text-align: left;
+            font-size: 10px;
+            font-weight: 600;
+            color: #6b7280;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .table td {
+            padding: 16px 24px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .table tr:hover {
+            background: #f9fafb;
+        }
+
+        .table tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal {
+            background: white;
+            border-radius: 12px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+
+        .modal-overlay.active .modal {
+            transform: scale(1);
+        }
+
+        .modal-header {
+            padding: 24px 24px 0;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .modal-title {
+            font-size: 14   px;
+            font-weight: 600;
+            color: #1f2937;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+
+        .modal-description {
+            color: #6b7280;
+            font-size: 14px;
+            margin-bottom: 16px;
+        }
+
+        .modal-content {
+            padding: 24px;
+        }
+
+        .modal-summary {
+            background: #f9fafb;
+            padding: 16px;
+            border-radius: 8px;
+            font-size: 12px;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+
+        .summary-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .summary-label {
+            color: #6b7280;
+        }
+
+        .summary-value {
+            color: #1f2937;
+            font-weight: 500;
+        }
+
+        .modal-footer {
+            padding: 16px 24px;
+            border-top: 1px solid #e5e7eb;
+            background: white;
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+        }
+
+        /* Toast Styles */
+        .toast-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1100;
+        }
+
+        .toast {
+            background: white;
+            border-radius: 8px;
+            padding: 16px 20px;
+            margin-bottom: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            border-left: 4px solid;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            min-width: 300px;
+            transform: translateX(400px);
+            transition: transform 0.3s ease;
+        }
+
+        .toast.show {
+            transform: translateX(0);
+        }
+
+        .toast.success {
+            border-left-color: #10b981;
+        }
+
+        .toast.error {
+            border-left-color: #ef4444;
+        }
+
+        .toast-icon {
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0;
+        }
+
+        .toast.success .toast-icon {
+            color: #10b981;
+        }
+
+        .toast.error .toast-icon {
+            color: #ef4444;
+        }
+
+        .toast-content {
+            flex: 1;
+        }
+
+        .toast-title {
+            font-weight: 600;
+            font-size: 12px;
+            color: #1f2937;
+            margin-bottom: 2px;
+        }
+
+        .toast-message {
+            font-size: 10px;
+            color: #6b7280;
+        }
+
+        .toast-close {
+            background: none;
+            border: none;
+            color: #9ca3af;
+            cursor: pointer;
+            padding: 2px;
+            font-size: 16px;
+        }
+
+        .toast-close:hover {
+            color: #6b7280;
+        }
+
+        /* Icons */
+        .icon {
+            width: 16px;
+            height: 16px;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 16px;
+            }
+
+            .grid-cols-3 {
+                grid-template-columns: 1fr;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .header-actions {
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .tab-list {
+                flex-direction: column;
+            }
+
+            .modal {
+                width: 95%;
+                margin: 20px;
+            }
+
+            .toast-container {
+                top: 10px;
+                right: 10px;
+                left: 10px;
+            }
+
+            .toast {
+                min-width: auto;
+            }
+        }
+
+        /* Hidden class */
+        .hidden {
+            display: none !important;
+        }
+
+        /* Status indicator */
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #10b981;
+            margin-right: 6px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- Header -->
+    <header class="header">
+        <h1>My Profile</h1>
+        <div class="header-actions">
+            <button id="editBtn" class="btn btn-primary">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                </svg>
+                Edit Profile
+            </button>
+            <button id="logoutBtn" class="btn btn-danger">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+                    <polyline points="16,17 21,12 16,7"/>
+                    <line x1="21" y1="12" x2="9" y2="12"/>
+                </svg>
+                Logout
+            </button>
+            <div id="editActions" class="hidden" style="display: flex; gap: 12px;">
+                <button id="cancelBtn" class="btn btn-outline">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"/>
+                        <line x1="6" y1="6" x2="18" y2="18"/>
+                    </svg>
+                    Cancel
+                </button>
+                <button id="saveBtn" class="btn btn-primary">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/>
+                        <polyline points="17,21 17,13 7,13 7,21"/>
+                        <polyline points="7,3 7,8 15,8"/>
+                    </svg>
+                    Save Changes
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Tabs -->
+        <div class="tabs">
+            <div class="tab-list">
+                <button class="tab-button active" data-tab="profile">Profile</button>
+                <button class="tab-button" data-tab="activity">Activity</button>
+                <button class="tab-button" data-tab="permissions">Permissions</button>
+            </div>
+        </div>
+
+        <!-- Profile Tab -->
+        <div id="profile-tab" class="tab-content active">
+            <div class="grid grid-cols-3">
+                <!-- Profile Card -->
+                <div class="card profile-card">
+                    <div class="profile-cover"></div>
+                    <div class="card-content">
+                        <div class="profile-avatar">N</div>
+                        <div class="profile-info">
+                            <h3 class="profile-name" id="displayName">Nagesha</h3>
+                            <p class="profile-email" id="displayEmail">nagesha.r@axcess.io</p>
+                            <span class="badge badge-admin" id="displayRole">
+                                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                                </svg>
+                                Admin
+                            </span>
+                        </div>
+
+                        <div class="separator"></div>
+
+                        <div class="profile-details">
+                            <div class="detail-item">
+                                <svg class="detail-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+                                    <line x1="8" y1="21" x2="16" y2="21"/>
+                                    <line x1="12" y1="17" x2="12" y2="21"/>
+                                </svg>
+                                <div class="detail-content">
+                                    <p>Position</p>
+                                    <p id="displayPosition">cloud Developer</p>
+                                </div>
+                            </div>
+
+                            <div class="detail-item">
+                                <svg class="detail-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                                    <polyline points="9,22 9,12 15,12 15,22"/>
+                                </svg>
+                                <div class="detail-content">
+                                    <p>Department</p>
+                                    <p id="displayDepartment">Engineering</p>
+                                </div>
+                            </div>
+
+                            <div class="detail-item">
+                                <svg class="detail-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <path d="M12 6v6l4 2"/>
+                                </svg>
+                                <div class="detail-content">
+                                    <p>Location</p>
+                                    <p id="displayLocation">Bangalore, India</p>
+                                </div>
+                            </div>
+
+                            <div class="detail-item">
+                                <svg class="detail-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                                    <line x1="16" y1="2" x2="16" y2="6"/>
+                                    <line x1="8" y1="2" x2="8" y2="6"/>
+                                    <line x1="3" y1="10" x2="21" y2="10"/>
+                                </svg>
+                                <div class="detail-content">
+                                    <p>Joined</p>
+                                    <p>Jan 15, 2023</p>
+                                </div>
+                            </div>
+
+                            <div class="detail-item">
+                                <svg class="detail-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <polyline points="12,6 12,12 16,14"/>
+                                </svg>
+                                <div class="detail-content">
+                                    <p>Last Login</p>
+                                    <p>Today, 10:30 AM</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Profile Information -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3>
+                            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                                <circle cx="12" cy="7" r="4"/>
+                            </svg>
+                            Personal Information
+                        </h3>
+                        <p id="formDescription">Your current personal information</p>
+                    </div>
+                    <div class="card-content">
+                        <!-- View Mode -->
+                        <div id="viewMode">
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label class="form-label">Full Name</label>
+                                    <div class="display-value" id="viewName">Nagesha</div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Email Address</label>
+                                    <div class="display-value" id="viewEmail">
+                                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                                            <polyline points="22,6 12,13 2,6"/>
+                                        </svg>
+                                        nagesha.r@axcess.io
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label class="form-label">Phone Number</label>
+                                    <div class="display-value" id="viewPhone">
+                                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                                        </svg>
+                                        +91 9876543210
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Organization ID</label>
+                                    <div class="display-value" id="viewOrganization">
+                                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                                            <polyline points="9,22 9,12 15,12 15,22"/>
+                                        </svg>
+                                        axcess.io
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label class="form-label">Position</label>
+                                    <div class="display-value" id="viewPositionField">cloud Developer</div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Location</label>
+                                    <div class="display-value" id="viewLocationField">Bangalore, India</div>
+                                </div>
+                            </div>
+
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label class="form-label">User Role</label>
+                                    <span class="badge badge-admin" id="viewRoleField">
+                                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                                        </svg>
+                                        Admin
+                                    </span>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Department</label>
+                                    <div class="display-value" id="viewDepartmentField">Engineering</div>
+                                </div>
+                            </div>
+
+                            <div class="separator"></div>
+
+                            <div class="form-group">
+                                <label class="form-label">Bio</label>
+                                <p id="viewBio" style="color: #374151; line-height: 1.6; font-size: 14px;">
+                                    Senior Software Engineer with expertise in full-stack development and cloud technologies. Specializing in Kubernetes, Docker, and microservices architecture.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Edit Mode -->
+                        <div id="editMode" class="hidden">
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label class="form-label">Full Name <span class="required">*</span></label>
+                                    <input type="text" id="editName" class="form-input" value="Rahul" placeholder="Enter your full name">
+                                    <div id="nameError" class="error-message hidden">
+                                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <circle cx="12" cy="12" r="10"/>
+                                            <line x1="15" y1="9" x2="9" y2="15"/>
+                                            <line x1="9" y1="9" x2="15" y2="15"/>
+                                        </svg>
+                                        Name is required
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Email Address <span class="required">*</span></label>
+                                    <input type="email" id="editEmail" class="form-input" value="rahul.bn@axcess.io" placeholder="Enter your email address">
+                                    <div id="emailError" class="error-message hidden">
+                                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <circle cx="12" cy="12" r="10"/>
+                                            <line x1="15" y1="9" x2="9" y2="15"/>
+                                            <line x1="9" y1="9" x2="15" y2="15"/>
+                                        </svg>
+                                        Please enter a valid email address
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label class="form-label">Phone Number <span class="required">*</span></label>
+                                    <div class="phone-input">
+                                        <select id="editCountryCode" class="form-select country-code">
+                                            <option value="+91">+91</option>
+                                            <option value="+1">+1</option>
+                                            <option value="+44">+44</option>
+                                            <option value="+86">+86</option>
+                                        </select>
+                                        <input type="text" id="editPhone" class="form-input" value="9876543210" placeholder="Enter phone number">
+                                    </div>
+                                    <div id="phoneError" class="error-message hidden">
+                                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <circle cx="12" cy="12" r="10"/>
+                                            <line x1="15" y1="9" x2="9" y2="15"/>
+                                            <line x1="9" y1="9" x2="15" y2="15"/>
+                                        </svg>
+                                        Please enter a valid 10-digit phone number
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Organization ID <span class="required">*</span></label>
+                                    <input type="text" id="editOrganization" class="form-input" value="axcess.io" placeholder="Enter organization ID">
+                                    <div id="organizationError" class="error-message hidden">
+                                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <circle cx="12" cy="12" r="10"/>
+                                            <line x1="15" y1="9" x2="9" y2="15"/>
+                                            <line x1="9" y1="9" x2="15" y2="15"/>
+                                        </svg>
+                                        Organization ID is required
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label class="form-label">Position</label>
+                                    <input type="text" id="editPosition" class="form-input" value="Senior Developer" placeholder="Enter your position">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Location</label>
+                                    <input type="text" id="editLocation" class="form-input" value="Bangalore, India" placeholder="Enter your location">
+                                </div>
+                            </div>
+
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label class="form-label">User Role</label>
+                                    <select id="editRole" class="form-select">
+                                        <option value="admin">Admin</option>
+                                        <option value="user">User</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Department</label>
+                                    <input type="text" id="editDepartment" class="form-input" value="Engineering" placeholder="Enter department">
+                                </div>
+                            </div>
+
+                            <div class="separator"></div>
+
+                            <div class="form-group">
+                                <label class="form-label">Bio</label>
+                                <textarea id="editBio" class="form-textarea" placeholder="Tell us about yourself...">Senior Software Engineer with expertise in full-stack development and cloud technologies. Specializing in Kubernetes, Docker, and microservices architecture.</textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Activity Tab -->
+        <div id="activity-tab" class="tab-content">
+            <div class="card">
+                <div class="card-header">
+                    <h3>
+                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"/>
+                            <polyline points="12,6 12,12 16,14"/>
+                        </svg>
+                        Recent Activity
+                    </h3>
+                    <p>Your recent account activity and login history</p>
+                </div>
+                <div class="activity-list">
+                    <div class="activity-item">
+                        <div class="activity-icon">
+                            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: #3b82f6;">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                                <circle cx="12" cy="7" r="4"/>
+                            </svg>
+                        </div>
+                        <div class="activity-content">
+                            <h4>Logged in from Bangalore, India</h4>
+                            <p>Today, 10:30 AM</p>
+                        </div>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-icon">
+                            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: #10b981;">
+                                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+                                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                            </svg>
+                        </div>
+                        <div class="activity-content">
+                            <h4>Updated profile information</h4>
+                            <p>Yesterday, 3:45 PM</p>
+                        </div>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-icon">
+                            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: #f59e0b;">
+                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                            </svg>
+                        </div>
+                        <div class="activity-content">
+                            <h4>Accessed K8s Management module</h4>
+                            <p>Jan 10, 2024, 2:15 PM</p>
+                        </div>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-icon">
+                            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: #3b82f6;">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                                <circle cx="12" cy="7" r="4"/>
+                            </svg>
+                        </div>
+                        <div class="activity-content">
+                            <h4>Logged in from New Delhi, India</h4>
+                            <p>Jan 8, 2024, 9:20 AM</p>
+                        </div>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-icon">
+                            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: #10b981;">
+                                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+                                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                            </svg>
+                        </div>
+                        <div class="activity-content">
+                            <h4>Changed organization settings</h4>
+                            <p>Jan 5, 2024, 11:05 AM</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Permissions Tab -->
+        <div id="permissions-tab" class="tab-content">
+            <div class="card">
+                <div class="card-header">
+                    <h3>
+                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                        </svg>
+                        Module Permissions
+                    </h3>
+                    <p>Your current access levels to different modules</p>
+                </div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Module</th>
+                            <th>Access Level</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Assessment</td>
+                            <td>
+                                <span class="badge badge-admin">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                                    </svg>
+                                    Admin
+                                </span>
+                            </td>
+                            <td>
+                                <span class="badge badge-active">
+                                    <span class="status-dot"></span>
+                                    Active
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Asset</td>
+                            <td>
+                                <span class="badge badge-admin">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                                    </svg>
+                                    Admin
+                                </span>
+                            </td>
+                            <td>
+                                <span class="badge badge-active">
+                                    <span class="status-dot"></span>
+                                    Active
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>GenAI</td>
+                            <td>
+                                <span class="badge badge-admin">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                                    </svg>
+                                    Admin
+                                </span>
+                            </td>
+                            <td>
+                                <span class="badge badge-active">
+                                    <span class="status-dot"></span>
+                                    Active
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>K8s Management</td>
+                            <td>
+                                <span class="badge badge-admin">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                                    </svg>
+                                    Admin
+                                </span>
+                            </td>
+                            <td>
+                                <span class="badge badge-active">
+                                    <span class="status-dot"></span>
+                                    Active
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Meeting</td>
+                            <td>
+                                <span class="badge badge-user">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                                        <circle cx="12" cy="7" r="4"/>
+                                    </svg>
+                                    Read-only
+                                </span>
+                            </td>
+                            <td>
+                                <span class="badge badge-active">
+                                    <span class="status-dot"></span>
+                                    Active
+                                </span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Save Confirmation Modal -->
+    <div id="saveModal" class="modal-overlay">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: #10b981;">
+                        <path d="M9 12l2 2 4-4"/>
+                        <circle cx="12" cy="12" r="10"/>
+                    </svg>
+                    Confirm Changes
+                </h3>
+                <p class="modal-description">
+                    Are you sure you want to save these changes to your profile? This will update your information across the system.
+                </p>
+            </div>
+            <div class="modal-content">
+                <div class="modal-summary" id="saveModalSummary">
+                    <!-- Summary will be populated by JavaScript -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeSaveModal()">Cancel</button>
+                <button class="btn btn-primary" onclick="confirmSave()">Save Changes</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cancel Confirmation Modal -->
+    <div id="cancelModal" class="modal-overlay">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: #f59e0b;">
+                        <circle cx="12" cy="12" r="10"/>
+                        <line x1="15" y1="9" x2="9" y2="15"/>
+                        <line x1="9" y1="9" x2="15" y2="15"/>
+                    </svg>
+                    Discard Changes?
+                </h3>
+                <p class="modal-description">
+                    You have unsaved changes. Are you sure you want to discard them? This action cannot be undone.
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeCancelModal()">Keep Editing</button>
+                <button class="btn btn-danger-solid" onclick="confirmCancel()">Discard Changes</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Logout Confirmation Modal -->
+    <div id="logoutModal" class="modal-overlay">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: #dc2626;">
+                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+                        <polyline points="16,17 21,12 16,7"/>
+                        <line x1="21" y1="12" x2="9" y2="12"/>
+                    </svg>
+                    Confirm Logout
+                </h3>
+                <p class="modal-description">
+                    Are you sure you want to logout? You will need to sign in again to access your account.
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeLogoutModal()">Cancel</button>
+                <button class="btn btn-danger-solid" onclick="confirmLogout()">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+                        <polyline points="16,17 21,12 16,7"/>
+                        <line x1="21" y1="12" x2="9" y2="12"/>
+                    </svg>
+                    Logout
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Global state
+        let isEditing = false;
+        let originalData = {};
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeTabs();
+            initializeEventListeners();
+            storeOriginalData();
+        });
+
+        // Tab functionality
+        function initializeTabs() {
+            const tabButtons = document.querySelectorAll('.tab-button');
+            const tabContents = document.querySelectorAll('.tab-content');
+
+            tabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const tabName = button.getAttribute('data-tab');
+                    
+                    // Remove active class from all tabs and contents
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
+                    tabContents.forEach(content => content.classList.remove('active'));
+                    
+                    // Add active class to clicked tab and corresponding content
+                    button.classList.add('active');
+                    document.getElementById(tabName + '-tab').classList.add('active');
+                });
+            });
+        }
+
+        // Event listeners
+        function initializeEventListeners() {
+            document.getElementById('editBtn').addEventListener('click', enterEditMode);
+            document.getElementById('cancelBtn').addEventListener('click', handleCancel);
+            document.getElementById('saveBtn').addEventListener('click', handleSave);
+            document.getElementById('logoutBtn').addEventListener('click', handleLogout);
+
+            // Modal close on overlay click
+            document.querySelectorAll('.modal-overlay').forEach(modal => {
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) {
+                        modal.classList.remove('active');
+                    }
+                });
+            });
+        }
+
+        // Store original data
+        function storeOriginalData() {
+            originalData = {
+                name: document.getElementById('editName').value,
+                email: document.getElementById('editEmail').value,
+                phone: document.getElementById('editPhone').value,
+                countryCode: document.getElementById('editCountryCode').value,
+                organization: document.getElementById('editOrganization').value,
+                position: document.getElementById('editPosition').value,
+                location: document.getElementById('editLocation').value,
+                role: document.getElementById('editRole').value,
+                department: document.getElementById('editDepartment').value,
+                bio: document.getElementById('editBio').value
+            };
+        }
+
+        // Edit mode functions
+        function enterEditMode() {
+            isEditing = true;
+            document.getElementById('viewMode').classList.add('hidden');
+            document.getElementById('editMode').classList.remove('hidden');
+            document.getElementById('editBtn').classList.add('hidden');
+            document.getElementById('logoutBtn').classList.add('hidden');
+            document.getElementById('editActions').classList.remove('hidden');
+            document.getElementById('formDescription').textContent = 'Update your personal details below';
+            clearErrors();
+        }
+
+        function exitEditMode() {
+            isEditing = false;
+            document.getElementById('viewMode').classList.remove('hidden');
+            document.getElementById('editMode').classList.add('hidden');
+            document.getElementById('editBtn').classList.remove('hidden');
+            document.getElementById('logoutBtn').classList.remove('hidden');
+            document.getElementById('editActions').classList.add('hidden');
+            document.getElementById('formDescription').textContent = 'Your current personal information';
+            clearErrors();
+        }
+
+        // Validation
+        function validateForm() {
+            let isValid = true;
+            clearErrors();
+
+            const name = document.getElementById('editName').value.trim();
+            const email = document.getElementById('editEmail').value.trim();
+            const phone = document.getElementById('editPhone').value.trim();
+            const organization = document.getElementById('editOrganization').value.trim();
+
+            if (!name) {
+                showError('nameError', 'Name is required');
+                isValid = false;
+            }
+
+            if (!email) {
+                showError('emailError', 'Email is required');
+                isValid = false;
+            } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                showError('emailError', 'Please enter a valid email address');
+                isValid = false;
+            }
+
+            if (!phone) {
+                showError('phoneError', 'Phone number is required');
+                isValid = false;
+            } else if (!/^\d{10}$/.test(phone)) {
+                showError('phoneError', 'Please enter a valid 10-digit phone number');
+                isValid = false;
+            }
+
+            if (!organization) {
+                showError('organizationError', 'Organization ID is required');
+                isValid = false;
+            }
+
+            return isValid;
+        }
+
+        function showError(errorId, message) {
+            const errorElement = document.getElementById(errorId);
+            errorElement.textContent = message;
+            errorElement.classList.remove('hidden');
+            
+            const inputId = errorId.replace('Error', '');
+            const inputElement = document.getElementById('edit' + inputId.charAt(0).toUpperCase() + inputId.slice(1));
+            if (inputElement) {
+                inputElement.classList.add('error');
+            }
+        }
+
+        function clearErrors() {
+            const errorElements = document.querySelectorAll('.error-message');
+            errorElements.forEach(element => {
+                element.classList.add('hidden');
+            });
+
+            const inputElements = document.querySelectorAll('.form-input, .form-select');
+            inputElements.forEach(element => {
+                element.classList.remove('error');
+            });
+        }
+
+        // Check if data has changed
+        function hasDataChanged() {
+            const currentData = {
+                name: document.getElementById('editName').value,
+                email: document.getElementById('editEmail').value,
+                phone: document.getElementById('editPhone').value,
+                countryCode: document.getElementById('editCountryCode').value,
+                organization: document.getElementById('editOrganization').value,
+                position: document.getElementById('editPosition').value,
+                location: document.getElementById('editLocation').value,
+                role: document.getElementById('editRole').value,
+                department: document.getElementById('editDepartment').value,
+                bio: document.getElementById('editBio').value
+            };
+
+            return JSON.stringify(currentData) !== JSON.stringify(originalData);
+        }
+
+        // Handle actions
+        function handleCancel() {
+            if (hasDataChanged()) {
+                document.getElementById('cancelModal').classList.add('active');
+            } else {
+                exitEditMode();
+            }
+        }
+
+        function handleSave() {
+            if (validateForm()) {
+                showSaveModal();
+            } else {
+                showToast('error', 'Validation Error', 'Please fix the errors before saving.');
+            }
+        }
+
+        function handleLogout() {
+            document.getElementById('logoutModal').classList.add('active');
+        }
+
+        // Modal functions
+        function showSaveModal() {
+            const summary = document.getElementById('saveModalSummary');
+            const name = document.getElementById('editName').value;
+            const email = document.getElementById('editEmail').value;
+            const phone = document.getElementById('editPhone').value;
+            const countryCode = document.getElementById('editCountryCode').value;
+            const role = document.getElementById('editRole').value;
+
+            summary.innerHTML = `
+                <div class="summary-row">
+                    <span class="summary-label">Name:</span>
+                    <span class="summary-value">${name}</span>
+                </div>
+                <div class="summary-row">
+                    <span class="summary-label">Email:</span>
+                    <span class="summary-value">${email}</span>
+                </div>
+                <div class="summary-row">
+                    <span class="summary-label">Phone:</span>
+                    <span class="summary-value">${countryCode} ${phone}</span>
+                </div>
+                <div class="summary-row">
+                    <span class="summary-label">Role:</span>
+                    <span class="summary-value">${role.charAt(0).toUpperCase() + role.slice(1)}</span>
+                </div>
+            `;
+
+            document.getElementById('saveModal').classList.add('active');
+        }
+
+        function closeSaveModal() {
+            document.getElementById('saveModal').classList.remove('active');
+        }
+
+        function confirmSave() {
+            updateDisplayValues();
+            storeOriginalData();
+            exitEditMode();
+            closeSaveModal();
+            showToast('success', 'Profile Updated', 'Your profile has been successfully updated.');
+        }
+
+        function closeCancelModal() {
+            document.getElementById('cancelModal').classList.remove('active');
+        }
+
+        function confirmCancel() {
+            restoreOriginalData();
+            exitEditMode();
+            closeCancelModal();
+            showToast('success', 'Changes Discarded', 'Your changes have been discarded.');
+        }
+
+        function closeLogoutModal() {
+            document.getElementById('logoutModal').classList.remove('active');
+        }
+
+        function confirmLogout() {
+            // Add your logout logic here
+            setTimeout(() => {
+                console.log('User logged out');
+                window.location.href = './index.html';
+            }, 200);
+        }
+
+        // Update display values
+        function updateDisplayValues() {
+            const name = document.getElementById('editName').value;
+            const email = document.getElementById('editEmail').value;
+            const phone = document.getElementById('editPhone').value;
+            const countryCode = document.getElementById('editCountryCode').value;
+            const organization = document.getElementById('editOrganization').value;
+            const position = document.getElementById('editPosition').value;
+            const location = document.getElementById('editLocation').value;
+            const role = document.getElementById('editRole').value;
+            const department = document.getElementById('editDepartment').value;
+            const bio = document.getElementById('editBio').value;
+
+            // Update all display elements
+            document.getElementById('displayName').textContent = name;
+            document.getElementById('displayEmail').textContent = email;
+            document.getElementById('displayPosition').textContent = position;
+            document.getElementById('displayDepartment').textContent = department;
+            document.getElementById('displayLocation').textContent = location;
+
+            document.getElementById('viewName').textContent = name;
+            document.getElementById('viewEmail').innerHTML = `
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                    <polyline points="22,6 12,13 2,6"/>
+                </svg>
+                ${email}
+            `;
+            document.getElementById('viewPhone').innerHTML = `
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                </svg>
+                ${countryCode} ${phone}
+            `;
+            document.getElementById('viewOrganization').innerHTML = `
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                    <polyline points="9,22 9,12 15,12 15,22"/>
+                </svg>
+                ${organization}
+            `;
+            document.getElementById('viewPositionField').textContent = position;
+            document.getElementById('viewLocationField').textContent = location;
+            document.getElementById('viewDepartmentField').textContent = department;
+            document.getElementById('viewBio').textContent = bio;
+
+            // Update role badge
+            const roleClass = role === 'admin' ? 'badge-admin' : 'badge-user';
+            const roleIcon = role === 'admin' ? 
+                '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>' :
+                '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>';
+
+            document.getElementById('displayRole').className = `badge ${roleClass}`;
+            document.getElementById('displayRole').innerHTML = `${roleIcon} ${role.charAt(0).toUpperCase() + role.slice(1)}`;
+
+            document.getElementById('viewRoleField').className = `badge ${roleClass}`;
+            document.getElementById('viewRoleField').innerHTML = `${roleIcon} ${role.charAt(0).toUpperCase() + role.slice(1)}`;
+        }
+
+        // Restore original data
+        function restoreOriginalData() {
+            document.getElementById('editName').value = originalData.name;
+            document.getElementById('editEmail').value = originalData.email;
+            document.getElementById('editPhone').value = originalData.phone;
+            document.getElementById('editCountryCode').value = originalData.countryCode;
+            document.getElementById('editOrganization').value = originalData.organization;
+            document.getElementById('editPosition').value = originalData.position;
+            document.getElementById('editLocation').value = originalData.location;
+            document.getElementById('editRole').value = originalData.role;
+            document.getElementById('editDepartment').value = originalData.department;
+            document.getElementById('editBio').value = originalData.bio;
+        }
+
+        // Toast notification system
+        function showToast(type, title, message) {
+            const toastContainer = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            
+            const iconSvg = {
+                success: '<svg class="toast-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>',
+                error: '<svg class="toast-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>'
+            };
+
+            toast.innerHTML = `
+                ${iconSvg[type]}
+                <div class="toast-content">
+                    <div class="toast-title">${title}</div>
+                    <div class="toast-message">${message}</div>
+                </div>
+                <button class="toast-close" onclick="removeToast(this)">&times;</button>
+            `;
+
+            toastContainer.appendChild(toast);
+
+            // Trigger animation
+            setTimeout(() => {
+                toast.classList.add('show');
+            }, 100);
+
+            // Auto remove after 5 seconds
+            setTimeout(() => {
+                removeToast(toast.querySelector('.toast-close'));
+            }, 5000);
+        }
+
+        function removeToast(closeBtn) {
+            const toast = closeBtn.parentElement;
+            toast.classList.remove('show');
+            setTimeout(() => {
+                toast.remove();
+            }, 300);
+        }
+    </script>
+</body>
+</html>
